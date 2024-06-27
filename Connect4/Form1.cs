@@ -53,7 +53,7 @@ namespace Connect4
             FileStream fs = new FileStream(path, FileMode.Open);
             IFormatter formatter = new BinaryFormatter();
             Scene = formatter.Deserialize(fs) as Scene;
-            fs.Close();
+            fs.Close(); ;
         }
     }
 }
