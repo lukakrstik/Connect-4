@@ -21,11 +21,15 @@ namespace Connect4
 
         public void Draw(Graphics g)
         {
-            Brush b = new SolidBrush(color);
+            
             int X = (center.X / 100) * 100;
             int Y = (center.Y / 100) * 100;
-            g.FillEllipse(b, X, Y, 2 * radius, 2 * radius);
-            b.Dispose();
+            if (X < 700 && Y < 650 && Y > 50)
+            {
+                Brush b = new SolidBrush(color);
+                g.FillEllipse(b, X, Y, 2 * radius, 2 * radius);
+                b.Dispose();
+            }
         }
     }
 }

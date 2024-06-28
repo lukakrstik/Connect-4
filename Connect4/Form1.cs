@@ -25,8 +25,8 @@ namespace Connect4
         {
             InitializeComponent();
             DoubleBuffered = true;
-            Width = 700;
-            Height = 700;
+            Width = 710;
+            Height = 750;
             Scene = new Scene(player1color, player2color, startingPlayer);
         }
 
@@ -121,7 +121,9 @@ namespace Connect4
 
         private void Form1_MouseClick(object sender, MouseEventArgs e)
         {
-            if (gameStarted)
+            int X = (e.X / 100) * 100;
+            int Y = (e.Y / 100) * 100;
+            if (gameStarted && X < 700 && Y < 650 && Y > 50)
             {
                 Scene.addBall(e.Location);
                 Invalidate();

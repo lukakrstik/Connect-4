@@ -15,6 +15,7 @@ namespace Connect4
         
         public int currentPlayer { get; set; }
 
+        public int[,] played = new int[6, 7];
 
         public List<Ball> balls = new List<Ball>();
 
@@ -33,14 +34,26 @@ namespace Connect4
                 Ball ball = new Ball(p, player1color);
                 balls.Add(ball);
                 currentPlayer = 2;
+                played[p.Y / 100, p.X / 100] = 1;
             }
-            else
+            else if(currentPlayer == 2)
             {
                 Ball ball = new Ball(p, player2color);
                 balls.Add(ball);
                 currentPlayer = 1;
+                played[p.Y / 100, p.X / 100] = 2;
             }
-            
+           
+
+            for (int i = 0; i < played.GetLength(0); i++)
+            {
+                for (int j = 0; j < played.GetLength(1); j++)
+                {
+                    Console.Write(played[i, j] + " ");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
 
         public void Draw(Graphics g)
