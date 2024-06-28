@@ -11,9 +11,9 @@ namespace Connect4
     {
         private Point center {  get; set; }
         private Color color {  get; set; }
-        private int radius = 25;
+        private int radius = 45;
 
-        Ball(Point center, Color color)
+        public Ball(Point center, Color color)
         {
             this.center = center;
             this.color = color;
@@ -22,7 +22,9 @@ namespace Connect4
         public void Draw(Graphics g)
         {
             Brush b = new SolidBrush(color);
-            g.FillEllipse(b, center.X - radius, center.Y - radius, 2 * radius, 2 * radius);
+            int X = (center.X / 100) * 100;
+            int Y = (center.Y / 100) * 100;
+            g.FillEllipse(b, X, Y, 2 * radius, 2 * radius);
             b.Dispose();
         }
     }

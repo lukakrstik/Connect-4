@@ -13,13 +13,21 @@ using System.Windows.Forms;
 
 namespace Connect4
 {
+    
     public partial class Form1 : Form
     {
         Scene Scene {  get; set; }
+        private Color player1color = Color.Blue;
+        private Color player2color = Color.Red;
+        private int startingPlayer = 1;
+        private bool gameStarted = false;
         public Form1()
         {
             InitializeComponent();
             DoubleBuffered = true;
+            Width = 700;
+            Height = 700;
+            Scene = new Scene(player1color, player2color, startingPlayer);
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -54,6 +62,75 @@ namespace Connect4
             IFormatter formatter = new BinaryFormatter();
             Scene = formatter.Deserialize(fs) as Scene;
             fs.Close(); ;
+        }
+
+        private void startGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            button1.Visible = false;
+            label1 .Visible = false;
+            Scene = new Scene(player1color, player2color, startingPlayer);
+            gameStarted = !gameStarted;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void starterToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void playerColor1_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                player1color = colorDialog.Color;
+            }
+        }
+
+        private void playerColor2_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                player2color = colorDialog.Color;
+            }
+        }
+
+        private void player1ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            player1ToolStripMenuItem.Checked = true;
+            player2ToolStripMenuItem.Checked = false;
+            startingPlayer = 1;
+        }
+
+        private void player2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            player1ToolStripMenuItem.Checked = false;
+            player2ToolStripMenuItem.Checked = true;
+            startingPlayer = 2;
+        }
+
+        private void Form1_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (gameStarted)
+            {
+                Scene.addBall(e.Location);
+                Invalidate();
+            }
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            Scene.Draw(e.Graphics);
         }
     }
 }
