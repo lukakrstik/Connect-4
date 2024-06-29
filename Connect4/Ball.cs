@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Connect4
 {
@@ -25,10 +26,15 @@ namespace Connect4
             int X = (center.X / 100) * 100;
             int Y = (center.Y / 100) * 100;
             
-                Brush b = new SolidBrush(color);
-                g.FillEllipse(b, X, Y+50, 2 * radius, 2 * radius);
-                b.Dispose();
-            
+               Brush b = new SolidBrush(color);
+               g.FillEllipse(b, X, Y+50, 2 * radius, 2 * radius);
+               b.Dispose();
+               Color shadeColor = ControlPaint.Dark(color);
+               Pen p = new Pen(new SolidBrush(shadeColor), 8);
+               g.DrawEllipse(p, X+4, Y+54,(float) 1.82 * radius, (float) 1.82 * radius); 
+               p.Dispose();
+
+
         }
     }
 }
