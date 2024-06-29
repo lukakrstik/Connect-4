@@ -46,7 +46,7 @@ namespace Connect4
                     Ball ball = new Ball(p, player1color);
                     balls.Add(ball);
                     played[p.Y / 100, p.X / 100] = 1;
-                    if(WinCheck(played, currentPlayer))
+                    if(WinCheck(currentPlayer))
                     {
                         Winner = "Winner: Player " + currentPlayer;
                     }
@@ -59,7 +59,7 @@ namespace Connect4
                     Ball ball = new Ball(p, player2color);
                     balls.Add(ball);
                     played[p.Y / 100, p.X / 100] = 2;
-                    if (WinCheck(played, currentPlayer))
+                    if (WinCheck(currentPlayer))
                     {
                         Winner = "Winner: Player " + currentPlayer;
                     }
@@ -70,7 +70,7 @@ namespace Connect4
             }
         }
 
-        private bool WinCheck(int[,] arr, int currplayer) {
+        private bool WinCheck(int currplayer) {
 
             for (int i = 0; i < played.GetLength(0); i++)
             {
@@ -124,6 +124,22 @@ namespace Connect4
                         return true;
                     }
                 }
+            }
+
+            bool tableFull = true;
+            for (int i = 0; i < played.GetLength(0); i++)
+            {
+                for (int j = 0; j < played.GetLength(1); j++)
+                {
+                    if (played[i,j] == 0)
+                    {
+                        tableFull = false;
+                    }
+                }
+            }
+            if (tableFull)
+            {
+                Winner = "Draw";
             }
             return false;
         }
