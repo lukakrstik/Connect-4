@@ -24,12 +24,11 @@ namespace Connect4
             
             int X = (center.X / 100) * 100;
             int Y = (center.Y / 100) * 100;
-            if (X < 700 && Y < 650 && Y > 50)
-            {
+            
                 Brush b = new SolidBrush(color);
-                g.FillEllipse(b, X, Y, 2 * radius, 2 * radius);
+                g.FillEllipse(b, X, Y+50, 2 * radius, 2 * radius);
                 b.Dispose();
-            }
+            
         }
     }
 }

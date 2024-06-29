@@ -26,7 +26,7 @@ namespace Connect4
             InitializeComponent();
             DoubleBuffered = true;
             Width = 710;
-            Height = 750;
+            Height = 800;
             Scene = new Scene(player1color, player2color, startingPlayer);
         }
 
@@ -123,16 +123,40 @@ namespace Connect4
         {
             int X = (e.X / 100) * 100;
             int Y = (e.Y / 100) * 100;
-            if (gameStarted && X < 700 && Y < 650 && Y > 50)
+            if (gameStarted && X < 700 && Y < 750 && Y > 5 && Scene.Winner.Length == 0)
             {
                 Scene.addBall(e.Location);
                 Invalidate();
+                if (Scene.Winner.Length != 0)
+                {
+                    ShowWinner();
+                }
             }
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
             Scene.Draw(e.Graphics);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            PictureBox pictureBox1 = new PictureBox();
+            pictureBox1.ImageLocation = "https://res.cloudinary.com/practicaldev/image/fetch/s--aoSCEM7T--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_800/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/22h00ieh9xkoucd1olpe.png";
+            pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
+        }
+
+        private void ShowWinner()
+        {
+            DialogResult result = MessageBox.Show(Scene.Winner,"Congratulations!!!");
+            if (result == DialogResult.OK)
+            {
+                button1.Visible = true;
+                label1.Visible = true;
+                Scene = Scene = new Scene(player1color, player2color, startingPlayer);
+                gameStarted = false;
+                Invalidate();
+            }
         }
     }
 }
